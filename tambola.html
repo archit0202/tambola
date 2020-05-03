@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.slim.min.js"
+      integrity="sha256-MlusDLJIP1GRgLrOflUQtshyP0TwT/RHXsI1wWGnQhs="
+      crossorigin="anonymous"></script>
+      <style>
+        * {
+          box-sizing: border-box;
+          font-weight: bold;
+          font-family: monospace;
+        }
+        body {
+          display: flex;
+          padding: 50px;
+        }
+        .left-container {
+          display: inline-block;
+          width: 30%;
+          background: #112233;
+          padding: 50px;
+        }
+        #next-number {
+          height: 400px;
+          font-size: 270px;
+          text-align: center;
+          color: #ffee00;
+          text-shadow: 4px 4px 2px #f00808;
+        }
+        .table {
+          display: inline-block;
+        }
+        table {
+          background: rgba(33, 150, 243, 0.34);
+          border: 3px solid #c01717;
+        }
+        td {
+          border: 2px solid #f66000;
+          color: #db1010;
+          text-align: center;
+          height: 70px;
+          width: 70px;
+          font-size: 34px;
+          border-radius: 50%;
+          display: inline-block;
+          padding: 15px;
+          margin: 10px;
+        }
+        .selected {
+          background: #007c1b93;
+          color: #ffee00;
+          text-shadow: 2px 2px 3px #000;
+          box-shadow: 3px 3px 3px #000;
+        }
+        button {
+          position: relative;
+          display: inline;
+          border: 2px solid #ffee00;
+          color: #ffee00;
+          background: #007c1bee;
+          margin: auto;
+          width: 100%;
+          padding: 16px;
+          font-size: 40px;
+          text-shadow: 2px 2px 3px #f00808;
+          box-shadow: 3px 3px 0 #ffee00;
+          outline: none;
+          border-radius: 20px;
+        }
+        button:active {
+          box-shadow: none;
+          top: 3px;
+          left: 3px;
+        }
+      </style>
+  </head>
+  <body>
+    <div class="left-container">
+      <div id="next-number">0</div>
+      <button onclick="nextNumber()">Next Number</button>
+    </div>
+    <div class="table">
+      <table class="board">
+        <tr id="row-1"></tr>
+        <tr id="row-2"></tr>
+        <tr id="row-3"></tr>
+        <tr id="row-4"></tr>
+        <tr id="row-5"></tr>
+        <tr id="row-6"></tr>
+        <tr id="row-7"></tr>
+        <tr id="row-8"></tr>
+        <tr id="row-9"></tr>
+      </table>
+    </div>
+    <script>
+      var numbers = [];
+      var counter = 1;
+      var previousNumber = 0;
+      (function () {
+        for (var i=1; i<=90; i++) {
+          var str = i.toString();
+          numbers.push(str);
+          if (str.match(/.[1]$/) !== null) {
+            counter++;
+          }
+          $('#row-'+counter).append('<td id="'+ str +'">'+ str+ '</td>');
+        }
+      })();
+      function nextNumber() {
+        var randomNumber = Math.random() * numbers.length;
+        if (parseInt(previousNumber) % 2 === 0) {
+          randomNumber = Math.floor(randomNumber);
+        }
+        else {
+          randomNumber = Math.ceil(randomNumber);
+        }
+        var selectedNumber = numbers.splice(randomNumber,1)[0];
+        $('#' + selectedNumber).addClass('selected');
+        $('#next-number').text(selectedNumber);
+      }
+    </script>
+  </body>
+</html>
